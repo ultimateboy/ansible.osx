@@ -5,6 +5,7 @@
 - include: firefox.yml
 - include: virtualbox.yml
 - include: vagrant.yml
+- include: iterm.yml
 - include: vlc.yml
 - include: dropbox.yml
 - include: steam.yml

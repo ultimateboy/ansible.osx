@@ -1,0 +1,9 @@
+---
+
+- name: iterm - install
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://iterm2.com/downloads/stable/iTerm2-2_1_4.zip
+    archive_type: zip
+    archive_path: "iTerm.app"
