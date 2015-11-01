@@ -93,3 +93,11 @@
     url: https://d13itkw33a7sus.cloudfront.net/dist/1P/mac4/1Password-5.4.1.zip
     archive_type: zip
     archive_path: "1Password 5.app"
+
+- name: Install Dropbox
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://www.dropbox.com/download?plat=mac
+    archive_type: dmg
+    archive_path: "Dropbox.app"
