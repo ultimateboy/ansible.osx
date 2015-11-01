@@ -42,11 +42,6 @@
   command: defaultbrowser -set chrome
   when: defaultbrowser_value.stdout != "chrome"
 
-- name: Check if virtualbox is installed
-  shell: "virtualbox --help | head -1 | sed 's/Oracle\ VM\ VirtualBox\ Manager //'"
-  register: virtualbox_version
-  changed_when: False
-
 - name: Install firefox
   become: true
   mac_pkg:
@@ -54,6 +49,11 @@
     url: https://download.mozilla.org/?product=firefox-41.0.2-SSL&os=osx&lang=en-US
     archive_type: dmg
     archive_path: "Firefox.app"
+
+- name: Check if virtualbox is installed
+  shell: "virtualbox --help | head -1 | sed 's/Oracle\ VM\ VirtualBox\ Manager //'"
+  register: virtualbox_version
+  changed_when: False
 
 - name: Install VirtualBox
   become: true
