@@ -4,5 +4,6 @@
   connection: local
   roles:
     - ultimateboy.utils
+    - ultimateboy.dotfiles
     - ultimateboy.osxdefaults
     - ultimateboy.apps

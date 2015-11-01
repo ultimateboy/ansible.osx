@@ -1,0 +1,106 @@
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+nnoremap <F5> :GundoToggle<CR>
+
+colorscheme default
+
+map <silent> <C-d> :!drush cc all<CR>
+
+" disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set number
+
+filetype indent on
+"set autoindent
+
+if has("autocmd")
+	" Drupal *.module and *.install files.
+	augroup module
+		autocmd BufRead,BufNewFile *.module set filetype=php
+		autocmd BufRead,BufNewFile *.inc set filetype=php
+		autocmd BufRead,BufNewFile *.test set filetype=php
+		autocmd BufRead,BufNewFile *.install set filetype=php
+		autocmd BufRead,BufNewFile *.profile set filetype=php
+	augroup END
+endif
+syntax on
+
+set backspace=indent,eol,start
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+				\| exe "normal g'\"" | endif
+endif
+
+set showmatch  " Show matching brackets.
+set ignorecase    " Do case insensitive matching
+set smartcase  " Do smart case matching
+set incsearch  " Incremental search
+set scrolloff=4 " Always show 4 lines above and bellow cursor (context)
+set modelines=0 " disable modelines : http://www.guninski.com/vim1.html
+
+set tags=./tags;/var/www
+
+" custom keybinginds for folding
+noremap f za
+noremap F zM
+noremap ,f zR
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+set laststatus=2
+
+" indent-guides
+let g:indent_guides_enable_on_vim_startup=1 "enable on startup
+set ts=2 sw=2 et
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+highlight IndentGuidesOdd  ctermbg=black
+highlight IndentGuidesEven ctermbg=233
+
+" set relativenumber
+" set number
+
+" paste magic: enter paste mode when pasting and nopaste when no longer pasting
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+
+set undolevels=1000
+set undoreload=10000

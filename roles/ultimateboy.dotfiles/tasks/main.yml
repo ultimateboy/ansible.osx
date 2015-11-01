@@ -1,0 +1,61 @@
+---
+
+- name: Create .vimrc file
+  template:
+    src: ../templates/vimrc.j2
+    dest: ~/.vimrc
+
+- name: Create src directory
+  file:
+    path: ~/src
+    state: directory
+
+- name: Clone pathogen v2.3
+  git:
+    repo: git@github.com:tpope/vim-pathogen.git
+    dest: ~/src/vim-pathogen
+    version: v2.3
+    update: no
+
+- name: Create pathogen directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - ~/.vim/autoload
+    - ~/.vim/bundle
+
+- name: Create symlink for pathogen file
+  file:
+    src: ~/src/vim-pathogen/autoload/pathogen.vim
+    dest: ~/.vim/autoload/pathogen.vim
+    state: link
+
+- name: Add vim plugins
+  git:
+    repo: "{{ item.repo }}"
+    version: "{{ item.version }}"
+    dest: ~/.vim/bundle/{{ item.name }}
+    update: no
+  with_items:
+    - name: vim-fugitive
+      repo: git@github.com:tpope/vim-fugitive.git
+      version: v2.2
+    - name: vim-gitgutter
+      repo: git@github.com:airblade/vim-gitgutter.git
+      version: b18e23cdfa082dee7da8a2466db5a66907491e5b
+    - name: vim-indent-guides
+      repo: git@github.com:nathanaelkane/vim-indent-guides.git
+      version: 49bde6fa30648345ffabfe55b3a095a293568a2e
+    - name: vim-ansible-yml
+      repo: git@github.com:chase/vim-ansible-yaml.git
+      version: c4c524fedf6d7ea49062bb3dd6cbb497e61f624e
+    - name: vim-airline
+      repo: git@github.com:bling/vim-airline.git
+      version: v0.7
+    - name: gundo.vim
+      repo: git@github.com:sjl/gundo.vim.git
+      version: v2.5.0
+    - name: command-t
+      repo: git@github.com:wincent/command-t.git
+      version: 1.13
