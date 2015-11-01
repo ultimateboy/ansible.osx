@@ -1,5 +1,12 @@
 ---
 
+- name: Create .bashrc file
+  template:
+    src: ../templates/bashrc.j2
+    dest: ~/.bashrc
+  notify:
+    - source bashrc
+
 - name: Create .vimrc file
   template:
     src: ../templates/vimrc.j2
