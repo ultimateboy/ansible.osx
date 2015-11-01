@@ -1,0 +1,9 @@
+---
+
+- name: Textmate - install
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://api.textmate.org/downloads/release
+    archive_type: tar
+    archive_path: "Textmate.app"
