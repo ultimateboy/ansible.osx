@@ -1,0 +1,15 @@
+---
+
+- name: Check if virtualbox is installed
+  shell: "virtualbox --help | head -1 | sed 's/Oracle\ VM\ VirtualBox\ Manager //'"
+  register: virtualbox_version
+  changed_when: False
+
+- name: Install VirtualBox
+  become: true
+  mac_pkg:
+    pkg_type: pkg
+    url: http://download.virtualbox.org/virtualbox/5.0.8/VirtualBox-5.0.8-103449-OSX.dmg
+    archive_type: dmg
+    archive_path: "VirtualBox.pkg"
+  when: virtualbox_version.stdout != "5.0.8"

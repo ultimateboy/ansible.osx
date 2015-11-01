@@ -1,0 +1,9 @@
+---
+
+- name: Install VLC
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: http://mirror.os6.org/videolan/vlc/2.2.1/macosx/vlc-2.2.1.dmg
+    archive_type: dmg
+    archive_path: "VLC.app"

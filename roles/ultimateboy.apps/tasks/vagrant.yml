@@ -1,0 +1,15 @@
+---
+
+- name: Check if Vagrant is installed
+  shell: "vagrant --version | sed 's/Vagrant\ //'"
+  register: vagrant_version
+  changed_when: False
+
+- name: Install Vagrant
+  become: true
+  mac_pkg:
+    pkg_type: pkg
+    url: https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg
+    archive_type: dmg
+    archive_path: "Vagrant.pkg"
+  when: vagrant_version.stdout != "1.7.4"

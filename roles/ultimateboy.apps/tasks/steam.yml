@@ -1,0 +1,10 @@
+---
+
+- name: Install Steam
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://steamcdn-a.akamaihd.net/client/installer/steam.dmg
+    dmg_license: yes
+    archive_type: dmg
+    archive_path: "Steam.app"

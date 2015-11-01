@@ -1,0 +1,9 @@
+---
+
+- name: Install Adium
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: http://downloads.sourceforge.net/project/adium/Adium_1.5.10.dmg?r=&ts=1446353003&use_mirror=skylineservers
+    archive_type: dmg
+    archive_path: "Adium.app"

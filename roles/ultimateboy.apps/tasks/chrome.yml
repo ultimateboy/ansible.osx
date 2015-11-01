@@ -1,0 +1,18 @@
+---
+
+- name: Install chrome
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
+    archive_type: dmg
+    archive_path: "Google Chrome.app"
+
+- name: Get default browser
+  shell: defaultbrowser | sed 's/Current:\ //' | head -1
+  register: defaultbrowser_value
+  changed_when: False
+
+- name: Set Chrome as default browser
+  command: defaultbrowser -set chrome
+  when: defaultbrowser_value.stdout != "chrome"

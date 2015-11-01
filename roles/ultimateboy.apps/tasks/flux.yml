@@ -1,0 +1,27 @@
+---
+
+- name: Install flux
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://justgetflux.com/mac/Flux.zip
+    archive_type: zip
+    archive_path: "Flux.app"
+  notify: restart flux
+
+- name: Configure flux location
+  osx_defaults:
+    domain: org.herf.Flux.plist
+    key: location
+    type: string
+    value: "40.007300,-105.258000"
+
+- name: Determine if flux is running
+  command: "pgrep Flux"
+  ignore_errors: yes
+  register: flux_pid
+  changed_when: False
+
+- name: Start flux
+  command: open /Applications/Flux.app
+  when: flux_pid.stdout == ""
