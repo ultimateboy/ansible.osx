@@ -85,3 +85,11 @@
     url: http://mirror.os6.org/videolan/vlc/2.2.1/macosx/vlc-2.2.1.dmg
     archive_type: dmg
     archive_path: "VLC.app"
+
+- name: Install 1Password
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://d13itkw33a7sus.cloudfront.net/dist/1P/mac4/1Password-5.4.1.zip
+    archive_type: zip
+    archive_path: "1Password 5.app"
