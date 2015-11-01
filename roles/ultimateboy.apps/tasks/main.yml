@@ -126,3 +126,11 @@
     url: http://downloads.sourceforge.net/project/adium/Adium_1.5.10.dmg?r=&ts=1446353003&use_mirror=skylineservers
     archive_type: dmg
     archive_path: "Adium.app"
+
+- name: Install Rdio
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: http://rdio0-a.akamaihd.net/media/static/desktop/mac/Rdio.dmg
+    archive_type: dmg
+    archive_path: "Rdio.app"
