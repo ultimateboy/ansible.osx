@@ -39,3 +39,16 @@
     type: string
     value: "clmv"
   notify: killall finder
+
+- name: Finder - Set desktop as the default location for new windows
+  osx_defaults:
+    domain: com.apple.finder
+    key: "{{ item.key }}"
+    type: string
+    value: "{{ item.value }}"
+  with_items:
+    - key: NewWindowTarget
+      value: PfDe
+    - key: NewWindowTargetPath
+      value: "file://${HOME}/Desktop"
+  notify: killall finder

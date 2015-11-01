@@ -1,0 +1,32 @@
+---
+
+- name: Safari - don't send search queries to Apple
+  osx_defaults:
+    domain: com.apple.Safari
+    key: "{{ item.key }}"
+    type: bool
+    value: "{{ item.value }}"
+  with_items:
+    - key: UniversalSearchEnabled
+      value: "false"
+    - key: SuppressSearchSuggestions
+      value: "true"
+
+- name: Safari - show full URL in the address bar
+  osx_defaults:
+    domain: com.apple.Safari
+    key: ShowFullURLInSmartSearchField
+    type: bool
+    value: "true"
+
+- name: Safari - Enable debug, develop, web inspector
+  osx_defaults:
+    domain: com.apple.Safari
+    key: "{{ item }}"
+    type: bool
+    value: "true"
+  with_items:
+    - IncludeInternalDebugMenu
+    - IncludeDevelopMenu
+    - WebKitDeveloperExtrasEnabledPreferenceKey
+    - com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled

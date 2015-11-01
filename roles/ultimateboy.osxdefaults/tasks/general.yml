@@ -1,0 +1,66 @@
+---
+
+- name: General - expanded save panel by default
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: "{{ item }}"
+    type: bool
+    value: "true"
+  with_items:
+    - NSNavPanelExpandedStateForSaveMode
+    - NSNavPanelExpandedStateForSaveMode2
+
+- name: General - expanded print panel by default
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: "{{ item }}"
+    type: bool
+    value: "true"
+  with_items:
+    - PMPrintingExpandedStateForPrint
+    - PMPrintingExpandedStateForPrint2
+
+- name: General - save to disk (not icloud) by default
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: NSDocumentSaveNewDocumentsToCloud
+    type: bool
+    value: "false"
+
+- name: General - automatiaclly quit printer app when jobs complete
+  osx_defaults:
+    domain: com.apple.print.PrintingPrefs
+    key: Quit When Finished
+    type: bool
+    value: "true"
+
+- name: General - disable smart quotes and dashes
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: "{{ item }}"
+    type: bool
+    value: "false"
+  with_items:
+    - NSAutomaticQuoteSubstitutionEnabled
+    - NSAutomaticDashSubstitutionEnabled
+
+- name: General - use scroll gesture with the Ctrl (^) modifier key to zoom
+  osx_defaults:
+    domain: com.apple.universalaccess
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+  with_items:
+    - key: closeViewScrollWheelToggle
+      type: bool
+      value: "true"
+    - key: HIDScrollZoomModifierMask
+      type: int
+      value: 262144
+
+- name: General - follow the keyboard focus while zoomed in
+  osx_defaults:
+    domain: com.apple.universalaccess
+    key: closeViewZoomFollowsFocus
+    type: bool
+    value: "true"
