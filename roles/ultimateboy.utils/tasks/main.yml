@@ -26,4 +26,12 @@
     state: link
   when: defaultbrowser_exists.stat.islnk is not defined
 
+- name: Install python pip
+  become: true
+  easy_install:
+    name: pip
 
+- name: Install speedtest-cli
+  become: true
+  pip:
+    name: speedtest-cli
