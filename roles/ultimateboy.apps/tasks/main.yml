@@ -47,6 +47,14 @@
   register: virtualbox_version
   changed_when: False
 
+- name: Install firefox
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://download.mozilla.org/?product=firefox-41.0.2-SSL&os=osx&lang=en-US
+    archive_type: dmg
+    archive_path: "Firefox.app"
+
 - name: Install VirtualBox
   become: true
   mac_pkg:
