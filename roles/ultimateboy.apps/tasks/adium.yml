@@ -7,3 +7,14 @@
     url: http://downloads.sourceforge.net/project/adium/Adium_1.5.10.dmg?r=&ts=1446353003&use_mirror=skylineservers
     archive_type: dmg
     archive_path: "Adium.app"
+
+- name: Set Adium message display configurations
+  plist_file:
+    dest: /Users/{{ ansible_ssh_user }}/Library/Application Support/Adium 2.0/Users/Default/WebKit Message Display.plist
+    value:
+      'Show Header': false
+      'Show User Icons': false
+      'im.adium.yMous.style:Variant': Saturnine BlueGreen Both
+      'Current Style Path': $$BundlePath$$/Contents/Resources/Message Styles/yMous.AdiumMessageStyle
+      'Adium 1.4:Updated Preferences': true
+      'Message Style': im.adium.yMous.style
