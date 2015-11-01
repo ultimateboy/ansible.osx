@@ -17,13 +17,14 @@
     value: "40.007300,-105.258000"
 
 - name: Determine if flux is running
-  shell: "ps -ax | grep 'Flux.app' | head -1"
-  register: flux_running
+  command: "pgrep Flux"
+  ignore_errors: yes
+  register: flux_pid
   changed_when: False
 
 - name: Start flux
   command: open /Applications/Flux.app
-  when: '"/Applications/Flux.app/Contents/MacOS/Flux" not in flux_running.stdout'
+  when: flux_pid.stdout == ""
 
 - name: Install chrome
   become: true
