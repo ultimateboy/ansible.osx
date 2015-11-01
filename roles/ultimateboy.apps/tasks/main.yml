@@ -11,4 +11,5 @@
 - include: steam.yml
 - include: spectacle.yml
 - include: adium.yml
+- include: hipchat.yml
 - include: rdio.yml

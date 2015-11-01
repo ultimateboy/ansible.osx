@@ -1,0 +1,9 @@
+---
+
+- name: HipChat - install
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://www.hipchat.com/downloads/latest/mac
+    archive_type: zip
+    archive_path: "HipChat.app"
