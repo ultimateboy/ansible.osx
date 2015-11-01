@@ -32,6 +32,14 @@
     value: "left"
   notify: killall dock
 
+- name: Dock - only show open applications
+  osx_defaults:
+    domain: com.apple.dock
+    key: static-only
+    type: bool
+    value: "true"
+  notify: killall dock
+
 - name: Terminal - default to homebrew dark theme
   osx_defaults:
     domain: com.apple.Terminal.plist
