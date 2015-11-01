@@ -18,3 +18,39 @@
       'Current Style Path': $$BundlePath$$/Contents/Resources/Message Styles/yMous.AdiumMessageStyle
       'Adium 1.4:Updated Preferences': true
       'Message Style': im.adium.yMous.style
+
+- name: Set Adium event present configurations
+  plist_file:
+    dest: /Users/{{ ansible_ssh_user }}/Library/Application Support/Adium 2.0/Users/Default/Event Presets.plist
+    value:
+      'Event Presets':
+        'quiet':
+          'Event Sound Set': TokyoTrainStation
+          'Events':
+            - EventID: Interface_ErrorMessageReceived
+              ActionID: Growl
+            - EventID: Interface_ErrorMessageReceived
+              ActionDetails:
+                BehaviorType: 2.000000
+              ActionID: BounceDockIcon
+            - EventID: FileTransfer_Failed
+              ActionID: Growl
+            - EventID: FileTransfer_Request
+              ActionID: Growl
+            - EventID: Content_MessageReceived
+              ActionDetails:
+                BehaviorType: 1.000000
+              ActionID: BounceDockIcon
+            - EventID: Content_MessageReceived
+              ActionID: DockOverlay
+            - EventID: Contact_StatusOnlineYes
+              ActionID: Growl
+            - EventID: Content_MessageReceivedBackground
+              ActionID: Growl
+            - EventID: Content_MessageReceivedBackground
+              ActionID: DockOverlay
+            - EventID: FileTransfer_Complete
+              ActionID: Growl
+          'Name': quiet
+          'OrderIndex': 1.000000
+      'Active Event Set': 'quiet'
