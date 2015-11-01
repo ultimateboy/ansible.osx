@@ -1,0 +1,15 @@
+---
+
+- name: Docker - Check if already installed
+  shell: "docker --version"
+  register: docker_version
+  changed_when: False
+
+- name: Docker Toolbox - Install
+  become: true
+  mac_pkg:
+    pkg_type: pkg
+    url: https://github.com/docker/toolbox/releases/download/v1.8.3/DockerToolbox-1.8.3.pkg
+    archive_type: none
+    archive_path: "DockerToolbox-1.8.3.pkg"
+  when: docker_version.stdout != "Docker version 1.8.3, build f4bf5c7"
