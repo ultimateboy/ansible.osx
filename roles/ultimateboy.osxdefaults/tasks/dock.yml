@@ -1,0 +1,41 @@
+---
+
+- name: Dock - set size of icons
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: integer
+    value: 40
+  notify: killall dock
+
+- name: Dock - Set autohide
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "true"
+  notify: killall dock
+
+- name: Dock - set delay
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: .2
+  notify: killall dock
+
+- name: Dock - orientation left
+  osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: "left"
+  notify: killall dock
+
+- name: Dock - only show open applications
+  osx_defaults:
+    domain: com.apple.dock
+    key: static-only
+    type: bool
+    value: "true"
+  notify: killall dock

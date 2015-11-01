@@ -1,0 +1,17 @@
+---
+
+- name: Terminal - default to homebrew dark theme
+  osx_defaults:
+    domain: com.apple.Terminal.plist
+    key: "Default Window Settings"
+    type: string
+    value: "Homebrew"
+  notify: read terminal plist
+
+- name: Terminal - startup to homebrew dark theme
+  osx_defaults:
+    domain: com.apple.Terminal.plist
+    key: "Startup Window Settings"
+    type: string
+    value: "Homebrew"
+  notify: read terminal plist
