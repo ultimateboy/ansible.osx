@@ -1,0 +1,89 @@
+---
+
+- name: Dock - set size of icons
+  osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: integer
+    value: 40
+  notify: killall dock
+
+- name: Dock - Set autohide
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "true"
+  notify: killall dock
+
+- name: Dock - set delay
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: .2
+  notify: killall dock
+
+- name: Dock - orientation left
+  osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: "left"
+  notify: killall dock
+
+- name: Terminal - default to homebrew dark theme
+  osx_defaults:
+    domain: com.apple.Terminal.plist
+    key: "Default Window Settings"
+    type: string
+    value: "Homebrew"
+  notify: read terminal plist
+
+- name: Terminal - startup to homebrew dark theme
+  osx_defaults:
+    domain: com.apple.Terminal.plist
+    key: "Startup Window Settings"
+    type: string
+    value: "Homebrew"
+  notify: read terminal plist
+
+- name: Finder - show hidden files
+  osx_defaults:
+    domain: com.apple.finder
+    key: AppleShowAllFiles
+    type: bool
+    value: "true"
+  notify: killall finder
+
+- name: Finder - show file extensions
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowAllExtensions
+    type: bool
+    value: "true"
+  notify: killall finder
+
+- name: Finder - show status bar
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowStatusBar
+    type: bool
+    value: "true"
+  notify: killall finder
+
+- name: Finder - show path bar
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: "true"
+  notify: killall finder
+
+- name: Finder - use column view by default
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXPreferredViewStyle
+    type: string
+    value: "clmv"
+  notify: killall finder

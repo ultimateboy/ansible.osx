@@ -1,0 +1,8 @@
+---
+
+- hosts: localhost
+  connection: local
+  roles:
+    - ultimateboy.utils
+    - ultimateboy.osxdefaults
+    - ultimateboy.apps

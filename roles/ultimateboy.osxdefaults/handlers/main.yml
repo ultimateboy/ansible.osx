@@ -1,0 +1,10 @@
+---
+
+- name: killall dock
+  command: killall -HUP Dock
+
+- name: read terminal plist
+  command: defaults read ~/Library/Preferences/com.apple.Terminal.plist
+
+- name: killall finder
+  command: killall Finder

@@ -1,0 +1,29 @@
+---
+
+- name: Create /usr/local/downloads
+  become: true
+  file:
+    path: /usr/local/downloads
+    state: directory
+
+- name: Check if defaultbrowser command exists
+  stat:
+    path: /usr/local/bin/defaultbrowser
+  register: defaultbrowser_exists
+
+- name: Download defaultbrowser script
+  become: true
+  git:
+    repo: http://github.com/kerma/defaultbrowser
+    dest: /usr/local/downloads/defaultbrowser
+  when: defaultbrowser_exists.stat.islnk is not defined
+
+- name: Symlink defaultbrowser script to usr/bin
+  become: true
+  file:
+    src: /usr/local/downloads/defaultbrowser/build/defaultbrowser
+    dest: /usr/local/bin/defaultbrowser
+    state: link
+  when: defaultbrowser_exists.stat.islnk is not defined
+
+

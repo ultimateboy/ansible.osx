@@ -1,0 +1,71 @@
+---
+
+- name: Install flux
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://justgetflux.com/mac/Flux.zip
+    archive_type: zip
+    archive_path: "Flux.app"
+  notify: restart flux
+
+- name: Configure flux location
+  osx_defaults:
+    domain: org.herf.Flux.plist
+    key: location
+    type: string
+    value: "40.007300,-105.258000"
+
+- name: Determine if flux is running
+  shell: "ps -ax | grep 'Flux.app' | head -1"
+  register: flux_running
+  changed_when: False
+
+- name: Start flux
+  command: open /Applications/Flux.app
+  when: '"/Applications/Flux.app/Contents/MacOS/Flux" not in flux_running.stdout'
+
+- name: Install chrome
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
+    archive_type: dmg
+    archive_path: "Google Chrome.app"
+
+- name: Get default browser
+  shell: defaultbrowser | sed 's/Current:\ //' | head -1
+  register: defaultbrowser_value
+  changed_when: False
+
+- name: Set Chrome as default browser
+  command: defaultbrowser -set chrome
+  when: defaultbrowser_value.stdout != "chrome"
+
+- name: Check if virtualbox is installed
+  shell: "virtualbox --help | head -1 | sed 's/Oracle\ VM\ VirtualBox\ Manager //'"
+  register: virtualbox_version
+  changed_when: False
+
+- name: Install VirtualBox
+  become: true
+  mac_pkg:
+    pkg_type: pkg
+    url: http://download.virtualbox.org/virtualbox/5.0.8/VirtualBox-5.0.8-103449-OSX.dmg
+    archive_type: dmg
+    archive_path: "VirtualBox.pkg"
+  when: virtualbox_version.stdout != "5.0.8"
+
+- name: Check if Vagrant is installed
+  shell: "vagrant --version | sed 's/Vagrant\ //'"
+  register: vagrant_version
+  changed_when: False
+
+- name: Install Vagrant
+  become: true
+  mac_pkg:
+    pkg_type: pkg
+    url: https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg
+    archive_type: dmg
+    archive_path: "Vagrant.pkg"
+  when: vagrant_version.stdout != "1.7.4"    
