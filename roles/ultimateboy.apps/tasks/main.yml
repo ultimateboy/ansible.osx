@@ -76,4 +76,12 @@
     url: https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg
     archive_type: dmg
     archive_path: "Vagrant.pkg"
-  when: vagrant_version.stdout != "1.7.4"    
+  when: vagrant_version.stdout != "1.7.4"
+
+- name: Install VLC
+  become: true
+  mac_pkg:
+    pkg_type: app
+    url: http://mirror.os6.org/videolan/vlc/2.2.1/macosx/vlc-2.2.1.dmg
+    archive_type: dmg
+    archive_path: "VLC.app"
